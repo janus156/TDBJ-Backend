@@ -123,7 +123,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     }
     /*
-    * 查看点赞的有哪些人*/
+    * 查看点赞排行榜*/
     @Override
     public Result queryBlogLikes(Long id) {
         String key=BLOG_LIKED_KEY+id;

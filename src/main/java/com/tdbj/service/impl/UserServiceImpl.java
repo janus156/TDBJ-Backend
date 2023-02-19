@@ -71,7 +71,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     //todo 密码登录
 
 
-    //todo 利用阿里云短信平台
 
     /**
      * 用户登录,如果没有该用户就创建一个
@@ -142,7 +141,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return Result.ok();
     }
 
-    //todo 根据经度纬度定位国家、省份
     //存储pos
     @Override
     public Result savePos(double longitude, double latitude) {

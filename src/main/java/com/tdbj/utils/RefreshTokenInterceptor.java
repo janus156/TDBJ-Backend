@@ -38,7 +38,6 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
         if (userMap.isEmpty()){
             return true;
         }
-
         // 3. 放到UserHolder里面去
         UserDTO userDTO = BeanUtil.fillBeanWithMap(userMap, new UserDTO(), false);
         UserHolder.saveUser(userDTO);
