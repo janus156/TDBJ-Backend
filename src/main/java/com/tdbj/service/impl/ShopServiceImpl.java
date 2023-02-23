@@ -6,13 +6,16 @@ import cn.hutool.core.util.StrUtil;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tdbj.Enum.ErrorCode;
 import com.tdbj.dto.Result;
+import com.tdbj.dto.UserDTO;
 import com.tdbj.entity.Shop;
 import com.tdbj.mapper.ShopMapper;
 import com.tdbj.service.IShopService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tdbj.utils.CacheClient;
 import com.tdbj.utils.SystemConstants;
+import com.tdbj.utils.UserHolder;
 import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
@@ -44,7 +47,6 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public Result queryById(Long id) {
-
         if (id==null) return Result.fail("错误！");
         //缓存空值解决缓存穿透
 //        Shop shop = cacheClient.queryWithPass(CACHE_SHOP_KEY, id, Shop.class,
@@ -65,6 +67,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     @Override
     @Transactional
     public Result updateShop(Shop shop) {
+        if (isAdmin()){
+            return Result.fail(ErrorCode.NO_AUTH_ERROR.getMessage());
+        }
+
         Long id = shop.getId();
         if (id ==null){
             return Result.fail("店铺id不存在");
@@ -103,6 +109,11 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     @Transactional
     @Override
     public Result delete(Shop shop) {
+        //鉴权
+        if (isAdmin()){
+            return Result.fail(ErrorCode.NO_AUTH_ERROR.getMessage());
+        }
+
         if (shop==null){
             return Result.fail("删除的店铺不存在");
         }
@@ -126,10 +137,21 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public Result saveShop(Shop shop) {
+        if (isAdmin()){
+            return Result.fail(ErrorCode.NO_AUTH_ERROR.getMessage());
+        }
         if (shop==null) return Result.fail("店铺为空");
         save(shop);
         return Result.ok();
     }
 
+    public Boolean isAdmin(){
+        UserDTO user = UserHolder.getUser();
+        String role = user.getRole();
+        if (!"admin".equals(role)){
+            return false;
+        }
+        return true;
+    }
 
 }

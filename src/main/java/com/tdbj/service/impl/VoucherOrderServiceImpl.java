@@ -8,13 +8,9 @@ import com.tdbj.service.ISeckillVoucherService;
 import com.tdbj.service.IVoucherOrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tdbj.utils.RedisConstants;
-import com.tdbj.utils.RedisIdWorker;
+import com.tdbj.utils.OnlyIdWorker;
 import com.tdbj.utils.SimpleRedisLock;
 import com.tdbj.utils.UserHolder;
-import org.redisson.Redisson;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -31,7 +27,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
     private ISeckillVoucherService seckillVoucherService;
 
     @Resource
-    private RedisIdWorker redisIdWorker;
+    private OnlyIdWorker onlyIdWorker;
 
 
     @Autowired
@@ -101,7 +97,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
 
         //6.创建订单
         VoucherOrder voucherOrder = new VoucherOrder();
-        long orderId = redisIdWorker.nextId("order");
+        long orderId = onlyIdWorker.nextId("order");
         voucherOrder.setId(orderId);
         voucherOrder.setUserId(userId);
         voucherOrder.setVoucherId(voucherId);

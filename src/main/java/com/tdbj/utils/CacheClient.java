@@ -52,9 +52,7 @@ public class CacheClient {
      */
     public <R,ID> R queryWithPass(String prefix, ID id, Class<R> type, Function<ID,R> dbFallBack,
                                   Long time, TimeUnit timeUnit) {
-
         String key = prefix + id;
-
         //查redis是否有,有的话将其转换为shop并返回
         String json = redisTemplate.opsForValue().get(key);
         if (StrUtil.isNotBlank(json)){

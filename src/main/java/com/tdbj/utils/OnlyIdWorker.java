@@ -8,7 +8,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class RedisIdWorker {
+public class OnlyIdWorker {
 
     /**
      * 2023过年的时间戳
@@ -21,7 +21,7 @@ public class RedisIdWorker {
 
     private StringRedisTemplate stringRedisTemplate;
 
-    public RedisIdWorker(StringRedisTemplate stringRedisTemplate) {
+    public OnlyIdWorker(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 

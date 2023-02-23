@@ -1,29 +1,15 @@
 package com.tdbj;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
-import com.tdbj.dto.Result;
-import com.tdbj.dto.UserDTO;
 import com.tdbj.entity.Shop;
-import com.tdbj.entity.User;
-import com.tdbj.entity.Voucher;
-import com.tdbj.mapper.ShopMapper;
 import com.tdbj.service.IShopService;
 import com.tdbj.service.IUserService;
-import com.tdbj.utils.CacheClient;
-import com.tdbj.utils.RedisConstants;
 import com.tdbj.utils.RedisData;
-import com.tdbj.utils.RedisIdWorker;
-import jodd.util.StringUtil;
+import com.tdbj.utils.OnlyIdWorker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.geo.Point;
-import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.concurrent.TimeUnit;
@@ -38,7 +24,7 @@ class tdbjPingApplicationTests {
     public StringRedisTemplate redisTemplate;
 
     @Autowired
-    public RedisIdWorker worker;
+    public OnlyIdWorker worker;
 
     @Autowired
     public IShopService shopService;
