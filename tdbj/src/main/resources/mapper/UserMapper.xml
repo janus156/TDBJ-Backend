@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tdbj.mapper.UserMapper">
+
+
+    <select id="getPermByUserId" resultType="java.lang.String" parameterType="java.lang.Long">
+          SELECT DISTINCT tb_menu.perm
+          FROM tb_menu
+            LEFT JOIN tb_role_menu ON tb_menu.id = tb_role_menu.menu_id
+            LEFT JOIN tb_role ON tb_role_menu.role_id = tb_role.id
+            LEFT JOIN tb_user_role ON tb_role.id = tb_user_role.role_id
+          WHERE tb_user_role.user_id = #{id}
+    </select>
+    <select id="getUserByName" resultType="com.tdbj.entity.User" parameterType="java.lang.String">
+          SELECT * FROM tb_user WHERE tb_user.nick_name=#{nickName};
+    </select>
+
+</mapper>

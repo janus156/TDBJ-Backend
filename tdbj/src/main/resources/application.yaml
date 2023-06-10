@@ -1,0 +1,37 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: tdbj
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://114.132.226.23:3306/tdbj?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&characterEncoding=utf8&useSSL=false
+    username: user1
+    password: user1
+  redis:
+    host: 114.132.226.23
+    port: 6379
+    password: user1
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 1
+        time-between-eviction-runs: 10s
+  rabbitmq:
+    host: 114.132.226.23 # rabbitMQ的ip地址
+    port: 5672 # 端口
+    username: user1
+    password: user1
+    virtual-host: /
+    publisher-confirm-type: correlated #生产者确认类型
+    publisher-returns: true #开启publish-return功能
+    template:
+        mandatory: true #定义消息路由失败时的策略
+  jackson:
+    default-property-inclusion: non_null
+mybatis-plus:
+  type-aliases-package: com.tdbj.entity # 别名扫描包
+logging:
+  level:
+    com.hmdp: debug
