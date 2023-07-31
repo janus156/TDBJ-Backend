@@ -1,5 +1,5 @@
-# TDBJ-advanced
-探店笔记后端升级版,添加了消息队列的逻辑
+# TDBJ-Backend
+添加了消息队列的逻辑
 
 项目介绍：基于 Spring Boot+Redis+RabbitMQ+Spring Security的店铺评价 APP，实现了用户按条件查找店铺、写笔记作点评、看热评关注博主、点 赞博客、博主主动推送笔记的一整套业务流程。
 
